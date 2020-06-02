@@ -1,0 +1,29 @@
+<div class="text-center">
+  <div class="text-4xl font-bold tracking-tight"><%= @title %></div>
+  <%= f = form_for @changeset, "#",
+  id: "subscriber-form",
+  phx_target: @myself,
+  phx_change: "validate",
+  phx_submit: "save",
+  class: "test" %>
+  <div class="py-2 px-8">
+    <div class="text-left mt-6">
+      <%= label f, :name, class: "text-gray-700 font-bold" %>
+      <%= text_input f, :name, placeholder: "Optional", class: "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none mt-2" %>
+      <%= error_tag f, :name %>
+    </div>
+    <div class="text-left mt-6">
+      <%= label f, :email_address, class: "text-gray-700 font-bold mb-2" %>
+      <%= text_input f, :email, class: "appearance-none block w-full bg-white text-gray-900 font-medium border border-gray-400 rounded-lg py-3 px-3 leading-tight focus:outline-none mt-2" %>
+      <%= error_tag f, :email %>
+    </div>
+    <div class="text-left mt-6 text-gray-700">
+      <%= checkbox f, :email, class: "" %> I have permission to email this person
+    </div>
+    <div class="mt-6">
+      <button> Cancel </button>
+      <%= submit "Add subscriber", phx_disable_with: "Saving...", class: "bg-greenbutton hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg border-none" %>
+    </div>
+  </div>
+</form>
+</div>

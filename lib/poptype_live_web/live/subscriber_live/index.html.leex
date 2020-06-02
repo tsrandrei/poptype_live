@@ -1,0 +1,62 @@
+<%= if @live_action in [:new, :edit] do %>
+<%= live_modal @socket, PoptypeLiveWeb.SubscriberLive.FormComponent,
+id: @subscriber.id || :new,
+title: @page_title,
+action: @live_action,
+subscriber: @subscriber,
+return_to: Routes.subscriber_index_path(@socket, :index) %>
+<% end %>
+
+<div class="flex items-center justify-between">
+  <div class="text-5xl"> Subscribers </div>
+  <%= live_patch "New Subscriber", to: Routes.subscriber_index_path(@socket, :new), class: "bg-greenbutton hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg border-none" %>
+</div>
+
+<div class="border-b flex justify-between">
+  <div class="md:flex">
+    <div class="flex -mb-px mr-8 items-center">
+      <%#= live_patch "Drafts", to: Routes.subscriber_index_path(@socket, :active), class: "no-underline border-b border-primary text-primary md:text-blue-dark flex items-center py-4 border-b border-blue-dark" %>
+      <div class="text-gray-800 ml-2"><%#= @drafts_count %></div>
+    </div>
+    <div class="flex -mb-px mr-8 items-center">
+      <%#= live_patch "Posted", to: Routes.story_index_path(@socket, :posted), class: "no-underline text-gray-800 opacity-50 md:text-grey-dark md:opacity-100 flex items-center py-4 border-b border-transparent hover:opacity-100 md:hover:border-grey-dark" %>
+      <div class="text-gray-800 ml-2"> <%#= @posted_count %> </div>
+    </div>
+    <div class="flex -mb-px mr-8 items-center">
+      <%#= live_patch "Archived", to: Routes.story_index_path(@socket, :archived), class: "no-underline text-gray-800 opacity-50 md:text-grey-dark md:opacity-100 flex items-center py-4 border-b border-transparent hover:opacity-100 md:hover:border-grey-dark" %>
+      <div class="text-gray-800 ml-2"> <%#= @archived_count %> </div>
+    </div>
+  </div>
+</div>
+
+<div id="subscribers">
+  <%= for subscriber <- @subscribers do %>
+  <div id="subscriber-<%= subscriber.id %>">
+       <div class="mt-8 mb-4 border-b">
+        <div class="flex w-full pb-6 inline-block">
+          <div class="w-1/5 -mt-4">
+           <button class="text-center text-3xl font-extrabold shadow-xs focus:outline-none focus:shadow-outline h-16 w-16 inline-block bg-primary rounded-full mx-2 text-white">A</button>
+         </div>
+         <div class="w-4/5 -ml-10">
+          <div class="font-bold">
+            <%= live_patch "#{subscriber.name}", to: Routes.subscriber_index_path(@socket, :edit, subscriber) %>
+          </div>
+          <div class="flex justify-between text-gray-500">
+            <div><%= beautiful(subscriber.inserted_at) %></div>
+            <div>Opened: - </div>
+            <div>Clicked: - </div>
+            <div>
+              <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: subscriber.id, data: [confirm: "Are you sure?"] %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+        
+        <span><%#= live_redirect "Show", to: Routes.subscriber_show_path(@socket, :show, subscriber) %></span>
+        <span><%#= live_patch "Edit", to: Routes.subscriber_index_path(@socket, :edit, subscriber) %></span>
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>

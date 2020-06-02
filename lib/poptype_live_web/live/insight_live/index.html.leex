@@ -1,0 +1,105 @@
+
+    <div class="flex items-center justify-between">
+      <div class="text-5xl font-extrabold tracking-tight">
+        Insights 
+      </div>
+    </div>
+    <div class="flex">
+      <div class="w-1/2 bg-white rounded-l-lg overflow-hidden border border-gray-400 p-4 text-center">
+        Total Readers
+      </div>
+      <div class="w-1/2 bg-white rounded-r-lg overflow-hidden border border-gray-400 p-4 text-center">
+        <div class="text-5xl text-primary">
+          <%= @total_subscribers %>
+        </div>
+        <div>
+          Total subscribers
+        </div>  
+        <div class="text-green-400">+ <%= @total_subscribers_in_7_days %> subscribers last 7 days</div>
+      </div>
+    </div>
+    
+    <div>
+      <div class="mt-6 bg-headerinsight rounded-t-lg overflow-hidden border-l border-t border-r border-gray-400 p-4">
+        <div class="font-bold">Top stories</div>
+        <div>Your stories that have got the most readers.</div>
+      </div>
+      <div class="bg-white rounded-b-lg overflow-hidden border border-gray-400 p-4">
+          something goes here
+      </div>
+    </div>
+    
+    <div>
+      <div class="mt-6 bg-headerinsight rounded-t-lg overflow-hidden border-l border-t border-r border-gray-400 p-4">
+        <div class="font-bold">Top subscribers</div>
+        <div>Your subscribers that have read most of your stories.</div>
+      </div>
+      <div class="bg-white rounded-b-lg overflow-hidden border border-gray-400 p-4">
+          <div>
+            Speedo dial
+          </div>
+          <div class="text-center">
+            <button class="bg-greenbutton hover:bg-green-700 text-white font-bold py-2 px-2 rounded-md border-none"> View subscribers</button>
+          </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="mt-6 bg-headerinsight rounded-t-lg overflow-hidden border-l border-t border-r border-gray-400 p-4">
+        <div class="font-bold">Top channels</div>
+        <div>Which channels bring you the most readers.</div>
+      </div>
+      <div class="bg-white rounded-b-lg overflow-hidden border border-gray-400 p-4">
+          something goes here
+          <div class="text-center">
+            <button class="bg-greenbutton hover:bg-green-700 text-white font-bold py-2 px-2 rounded-md border-none"> View subscribers</button>
+          </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="mt-6 bg-headerinsight rounded-t-lg overflow-hidden border-l border-t border-r border-insightbordercolor p-4">
+        <div class="font-bold">Location of readers</div>
+        <div>See where your readers are in the world.</div>
+      </div>
+      <div class="bg-white rounded-b-lg overflow-hidden border border-insightbordercolor p-4">
+        <svg class="h-full w-full">       
+          <image xlink:href="<%#= Routes.static_path(@conn, "/images/world.svg") %>" src="" class="h-full w-full"/>    
+        </svg>
+      </div>
+    </div>
+
+
+
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, PoptypeLiveWeb.InsightLive.FormComponent,
+    id: @insight.id || :new,
+    title: @page_title,
+    action: @live_action,
+    insight: @insight,
+    return_to: Routes.insight_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="insights">
+    <%= for insight <- @insights do %>
+      <tr id="insight-<%= insight.id %>">
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.insight_show_path(@socket, :show, insight) %></span>
+          <span><%= live_patch "Edit", to: Routes.insight_index_path(@socket, :edit, insight) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: insight.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Insight", to: Routes.insight_index_path(@socket, :new) %></span>

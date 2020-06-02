@@ -1,0 +1,37 @@
+<h1>Show Story</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, PoptypeLiveWeb.StoryLive.FormComponent,
+    id: @story.id,
+    title: @page_title,
+    action: @live_action,
+    story: @story,
+    return_to: Routes.story_show_path(@socket, :show, @story) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Username:</strong>
+    <%= @story.username %>
+  </li>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @story.title %>
+  </li>
+
+  <li>
+    <strong>Body:</strong>
+    <%= @story.body %>
+  </li>
+
+  <li>
+    <strong>Tags:</strong>
+    <%= @story.tags %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.story_show_path(@socket, :edit, @story), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.story_index_path(@socket, :index) %></span>

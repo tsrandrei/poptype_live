@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <%= csrf_meta_tag() %>
+    <%= live_title_tag assigns[:page_title] || "PoptypeLive", suffix: " · Phoenix Framework" %>
+    <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+  </head>
+  <body style="color: #666; font-family: Fira Sans,Arial,sans-serif; font-size: 100%;text-rendering: optimizeLegibility;">
+      <div class="bg-white pt-24 lg:pt-0">
+    <header class="fixed z-100 bg-white inset-x-0 top-0 border-b-2 border-gray-200 lg:border-b-0 lg:static flex items-center">
+      <div class="w-full max-w-screen-xl relative mx-auto px-6">
+        <div class="lg:border-b-2 lg:border-gray-200 h-24 flex flex-col justify-center">
+          <div class="flex items-center -mx-6">
+            <div class="lg:w-1/5 xl:w-1/6 pl-6 pr-6"> 
+              <div class="flex items-center">
+                <%= link "LOGO", to: Routes.page_path(@conn, :index), class: "block flex items-center hover:text-gray-700 mr-5" %>
+              </div>
+            </div>
+
+            <div class="flex flex-grow lg:w-3/4 xl:w-5/6">
+              <div class="w-full lg:px-6 lg:w-3/4 xl:px-12">
+                <div class="flex justify-start items-center text-gray-500">
+                  <%= link "Stories", to: Routes.story_index_path(@conn, :drafts), class: "block flex items-center hover:text-gray-700 mr-5"  %>
+                  <%= link "Subscribers", to: Routes.subscriber_index_path(@conn, :index), class: "block flex items-center hover:text-gray-700 mr-5"  %>
+                  <%= link "Insights", to: Routes.insight_index_path(@conn, :index), class: "block flex items-center hover:text-gray-700 mr-5" %>
+                </ul>
+              </div>  
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>  
+
+    <div class="flex my-4">
+      <div class="w-1/5"></div>
+      <div class="w-3/5">
+        <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+        <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+      </div>
+      <div class="w-1/5"></div>
+    </div>
+    <div class="flex">
+      <div class="lg:w-1/5 xl:w-1/5"></div>
+      <div class="w-full lg:w-3/5 xl:w-3/5 lg:max-w-2xl xl:max-w-2xl ">
+        <%= @inner_content %>
+      <div class="lg:w-1/5 xl:w-1/5"></div>
+    </div>
+</html>

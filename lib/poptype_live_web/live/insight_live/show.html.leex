@@ -1,0 +1,17 @@
+<h1>Show Insight</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, PoptypeLiveWeb.InsightLive.FormComponent,
+    id: @insight.id,
+    title: @page_title,
+    action: @live_action,
+    insight: @insight,
+    return_to: Routes.insight_show_path(@socket, :show, @insight) %>
+<% end %>
+
+<ul>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.insight_show_path(@socket, :edit, @insight), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.insight_index_path(@socket, :index) %></span>

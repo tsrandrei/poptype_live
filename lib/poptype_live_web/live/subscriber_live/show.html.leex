@@ -1,0 +1,27 @@
+<h1>Show Subscriber</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, PoptypeLiveWeb.SubscriberLive.FormComponent,
+    id: @subscriber.id,
+    title: @page_title,
+    action: @live_action,
+    subscriber: @subscriber,
+    return_to: Routes.subscriber_show_path(@socket, :show, @subscriber) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @subscriber.name %>
+  </li>
+
+  <li>
+    <strong>Email:</strong>
+    <%= @subscriber.email %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.subscriber_show_path(@socket, :edit, @subscriber), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.subscriber_index_path(@socket, :index) %></span>

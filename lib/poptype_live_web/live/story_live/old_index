@@ -1,0 +1,14 @@
+
+  <div id="stories">
+    <%= for story <- @stories do %>
+      <div id="story-<%= story.id %>">
+        <td><%= story.username %></td>
+        <td><%= story.title %></td>
+        <td><%= story.body %></td>
+        <td><%= story.tags %></td>
+
+        <span><%= live_redirect "Show", to: Routes.story_show_path(@socket, :show, story) %></span>
+        <span><%= live_patch "Edit", to: Routes.story_index_path(@socket, :edit, story) %></span>
+        <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: story.id, data: [confirm: "Are you sure?"] %></span>
+    <% end %>
+</div>

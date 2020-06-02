@@ -1,0 +1,58 @@
+<%= if @live_action in [:new, :edit] do %>
+<%= live_modal @socket, PoptypeLiveWeb.StoryLive.FormComponent,
+id: @story.id || :new,
+title: @page_title,
+action: @live_action,
+story: @story,
+return_to: Routes.story_index_path(@socket, :drafts) %>
+<% end %>
+
+<div class="flex items-center justify-between">
+  <div class="text-5xl"> Stories </div>
+  <%= live_patch "Write new", to: Routes.story_index_path(@socket, :new), class: "bg-greenbutton hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg border-none" %>
+</div>
+
+<div class="border-b flex justify-between">
+  <div class="md:flex">
+    <div class="flex -mb-px mr-8 items-center">
+      <%= live_patch "Drafts", to: Routes.story_index_path(@socket, :drafts), class: "no-underline border-b border-primary text-primary md:text-blue-dark flex items-center py-4 border-b border-blue-dark" %>
+      <div class="text-gray-800 ml-2"><%= @drafts_count %></div>
+    </div>
+    <div class="flex -mb-px mr-8 items-center">
+      <%= live_patch "Posted", to: Routes.story_index_path(@socket, :posted), class: "no-underline text-gray-800 opacity-50 md:text-grey-dark md:opacity-100 flex items-center py-4 border-b border-transparent hover:opacity-100 md:hover:border-grey-dark" %>
+      <div class="text-gray-800 ml-2"> <%= @posted_count %> </div>
+    </div>
+    <div class="flex -mb-px mr-8 items-center">
+      <%= live_patch "Archived", to: Routes.story_index_path(@socket, :archived), class: "no-underline text-gray-800 opacity-50 md:text-grey-dark md:opacity-100 flex items-center py-4 border-b border-transparent hover:opacity-100 md:hover:border-grey-dark" %>
+      <div class="text-gray-800 ml-2"> <%= @archived_count %> </div>
+    </div>
+  </div>
+</div>
+
+<%= for story <- @stories do %>
+<div class="flex mt-8 border-b">
+ <div class="w-full">
+  <div id="story-<%= story.id %>">
+    <div class="font-bold"><%= live_patch "#{story.title}", to: Routes.story_index_path(@socket, :edit, story) %></div>
+    <div class="flex justify-between text-gray-500">
+      <div><%= beautiful(story.inserted_at) %></div>
+      <div>
+        <%= if @live_action in [:drafts] do %>
+           <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: story.id, data: [confirm: "Are you sure?"] %></span>
+        <% end %>
+        <%= if @live_action in [:posted] do %>
+           <span><%= link "Share", to: "#", phx_click: "delete", phx_value_id: story.id, data: [confirm: "Are you sure?"] %></span>
+           <span><%= link "Stats", to: "#", phx_click: "delete", phx_value_id: story.id, data: [confirm: "Are you sure?"] %></span>
+           <span><%= link "Archive", to: "#", phx_click: "delete", phx_value_id: story.id, data: [confirm: "Are you sure?"] %></span>
+        <% end %>
+        <%= if @live_action in [:archived] do %>
+           <span><%= link "Stats", to: "#", phx_click: "delete", phx_value_id: story.id, data: [confirm: "Are you sure?"] %></span>
+        <% end %>
+        <span><%= live_patch "Edit", to: Routes.story_index_path(@socket, :edit, story) %></span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<% end %>
+
