@@ -32,31 +32,30 @@ return_to: Routes.subscriber_index_path(@socket, :index) %>
 <div id="subscribers">
   <%= for subscriber <- @subscribers do %>
   <div id="subscriber-<%= subscriber.id %>">
-       <div class="mt-8 mb-4 border-b">
-        <div class="flex w-full pb-6 inline-block">
-          <div class="w-1/5 -mt-4">
-           <button class="text-center text-3xl font-extrabold shadow-xs focus:outline-none focus:shadow-outline h-16 w-16 inline-block bg-primary rounded-full mx-2 text-white">A</button>
-         </div>
-         <div class="w-4/5 -ml-10">
-          <div class="font-bold">
-            <%= live_patch "#{subscriber.name}", to: Routes.subscriber_index_path(@socket, :edit, subscriber) %>
-          </div>
-          <div class="flex justify-between text-gray-500">
-            <div><%= beautiful(subscriber.inserted_at) %></div>
-            <div>Opened: - </div>
-            <div>Clicked: - </div>
-            <div>
-              <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: subscriber.id, data: [confirm: "Are you sure?"] %></span>
-            </div>
-          </div>
+   <div class="mt-8 mb-4 border-b">
+    <div class="flex w-full pb-6 inline-block">
+      <div class="w-1/5 -mt-4">
+       <button class="text-center text-3xl font-extrabold shadow-xs focus:outline-none focus:shadow-outline h-16 w-16 inline-block bg-primary rounded-full mx-2 text-white">A</button>
+     </div>
+     <div class="w-4/5 -ml-10">
+      <div class="font-bold">
+        <%= live_patch "#{subscriber.name}", to: Routes.subscriber_index_path(@socket, :edit, subscriber) %>
+      </div>
+      <div class="flex justify-between text-gray-500">
+        <div><%= beautiful(subscriber.inserted_at) %></div>
+        <div>Opened: - </div>
+        <div>Clicked: - </div>
+        <div>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: subscriber.id, data: [confirm: "Are you sure?"] %></span>
         </div>
       </div>
     </div>
-        
-        <span><%#= live_redirect "Show", to: Routes.subscriber_show_path(@socket, :show, subscriber) %></span>
-        <span><%#= live_patch "Edit", to: Routes.subscriber_index_path(@socket, :edit, subscriber) %></span>
-      </div>
-    </div>
   </div>
-  <% end %>
+</div>
+
+<span><%#= live_redirect "Show", to: Routes.subscriber_show_path(@socket, :show, subscriber) %></span>
+<span><%#= live_patch "Edit", to: Routes.subscriber_index_path(@socket, :edit, subscriber) %></span>
+</div>
+</div>
+<% end %>
 </div>

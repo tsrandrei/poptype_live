@@ -12,7 +12,7 @@
   <body style="color: #666; font-family: Fira Sans,Arial,sans-serif; font-size: 100%;text-rendering: optimizeLegibility;">
       <div class="bg-white pt-24 lg:pt-0">
     <header class="fixed z-100 bg-white inset-x-0 top-0 border-b-2 border-gray-200 lg:border-b-0 lg:static flex items-center">
-      <div class="w-full max-w-screen-xl relative mx-auto px-6">
+      <div class="w-full max-w-screen-lg relative mx-auto px-6">
         <div class="lg:border-b-2 lg:border-gray-200 h-24 flex flex-col justify-center">
           <div class="flex items-center -mx-6">
             <div class="lg:w-1/5 xl:w-1/6 pl-6 pr-6"> 
@@ -34,19 +34,13 @@
         </div>
       </div>
     </header>  
-
-    <div class="flex my-4">
-      <div class="w-1/5"></div>
-      <div class="w-3/5">
+    <div class="w-full max-w-screen-md mx-auto px-6 my-4">
         <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
         <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
       </div>
-      <div class="w-1/5"></div>
     </div>
-    <div class="flex">
-      <div class="lg:w-1/5 xl:w-1/5"></div>
-      <div class="w-full lg:w-3/5 xl:w-3/5 lg:max-w-2xl xl:max-w-2xl ">
+    <div class="w-full max-w-screen-md mx-auto px-6">
         <%= @inner_content %>
-      <div class="lg:w-1/5 xl:w-1/5"></div>
     </div>
+  </body>
 </html>
